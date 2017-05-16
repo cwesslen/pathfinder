@@ -7,7 +7,6 @@
 #define NodeMapclass
 #include "Node.hpp"
 #include <queue>
-#include <vector>
 using namespace std;
 
 class NodeMap{

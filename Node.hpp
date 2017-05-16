@@ -10,7 +10,7 @@ using namespace std;
 class Node{
       friend class NodeMap;
       private:
-            int pos;
+            int pos,G;
             bool edge,closed,open;
             Node* parent;
       public:
