@@ -17,7 +17,7 @@ class NodeMap{
             queue<Node*> openList;
             Node* closedNode;
             bool addNeighboursToOpenList();
-            bool addToOpenList(Node* neighbor, Node* parent);
+            bool addToOpenList(Node* neighbor);
       public:
             NodeMap(const unsigned char* pMap, const int nMapWidth, const int nMapHeight,
             const int nStartX, const int nStartY,const int nTargetX, const int nTargetY);
