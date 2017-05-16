@@ -1,7 +1,7 @@
 //-------------------------------------------------------------------
 // Main.cpp
 // Mainfil
-// Carl Wesslen 2016-03-27
+// Carl Wesslen 2016-05-16
 //-----------------------------------------------------------------------------
 #include <iostream>
 #include <ctime>
@@ -34,7 +34,6 @@ int main(){
       duration = (( clock() - start ) / (double) CLOCKS_PER_SEC);
       cout<<"Time: "<< duration <<endl;
       cout << "steps: " << steps << endl;
-
 //      cout << "path: ";
 //      for(int i=0;i<steps;i++) cout << pOutBuffer[i] << " ";
 //      cout << endl;

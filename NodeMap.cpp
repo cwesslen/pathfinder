@@ -99,6 +99,7 @@ bool NodeMap::addToOpenList(Node* neighbour){
       if(!neighbour->open){
             if(neighbour->pos==target){
                   neighbour->parent=closedNode;
+                  neighbour->G=closedNode->G+1;
                   closedNode=neighbour;
                   return true;
             }
@@ -119,12 +120,10 @@ bool NodeMap::step(){
 }
 
 int NodeMap::fillOutput(int* pOutBuffer, const int nOutBufferSize){
-      vector<int> path;
-      while(*closedNode!=nodeMap[start]){
-            path.push_back(closedNode->pos);
+      int size=closedNode->G;
+      if(size>nOutBufferSize) return size;
+      while(closedNode->G>0){
+            pOutBuffer[closedNode->G-1]=closedNode->pos;
             closedNode=closedNode->parent;
-      }
-      if(path.size()>nOutBufferSize) return path.size();
-      for(int i=0;i<path.size();i++) pOutBuffer[i]=path[path.size()-1-i];
-      return path.size();
+      }return size;
 }
