@@ -10,7 +10,7 @@ NodeMap::NodeMap(const unsigned char* pMap, const int nMapWidth, const int nMapH
       mapWidth(nMapWidth),mapHeight(nMapHeight),start(nStartX+nStartY*mapWidth),
       target(nTargetX+nTargetY*mapWidth),nodeMap(new Node[nMapHeight*nMapWidth]){
       for(int i=0;i<mapWidth*mapHeight;i++)
-      nodeMap[i]=Node(i,pMap[i]==1,i%mapWidth==0||i%mapWidth==mapWidth-1||i/mapWidth==0||i/mapWidth==mapHeight-1);
+      nodeMap[i]=Node(i,pMap[i]==0,i%mapWidth==0||i%mapWidth==mapWidth-1||i/mapWidth==0||i/mapWidth==mapHeight-1);
       closedNode=&(nodeMap[start]);
       nodeMap[start].G=0;
       nodeMap[start].closed=true;
@@ -18,76 +18,76 @@ NodeMap::NodeMap(const unsigned char* pMap, const int nMapWidth, const int nMapH
 }
 
 bool NodeMap::addNeighboursToOpenList(){
-      int x=closedNode->pos%mapWidth, y=closedNode->pos/mapWidth;
+      int pos=closedNode->pos;
       if(!closedNode->edge){
-            if(nodeMap[x+1+(y)*mapWidth].pass&&!nodeMap[x+1+(y)*mapWidth].closed) {
-                  if(addToOpenList(&nodeMap[x+1+(y)*mapWidth])) return true;
+            if(!nodeMap[pos+1].closed) {
+                  if(addToOpenList(&nodeMap[pos+1])) return true;
             }
-            if(nodeMap[x+(y+1)*mapWidth].pass&&!nodeMap[x+(y+1)*mapWidth].closed) {
-                  if(addToOpenList(&nodeMap[x+(y+1)*mapWidth])) return true;
+            if(!nodeMap[pos+1*mapWidth].closed) {
+                  if(addToOpenList(&nodeMap[pos+1*mapWidth])) return true;
             }
-            if(nodeMap[x+(y-1)*mapWidth].pass&&!nodeMap[x+(y-1)*mapWidth].closed) {
-                  if(addToOpenList(&nodeMap[x+(y-1)*mapWidth])) return true;
+            if(!nodeMap[pos-1*mapWidth].closed) {
+                  if(addToOpenList(&nodeMap[pos-1*mapWidth])) return true;
             }
-            if(nodeMap[x-1+(y)*mapWidth].pass&&!nodeMap[x-1+(y)*mapWidth].closed) {
-                  if(addToOpenList(&nodeMap[x-1+(y)*mapWidth])) return true;
+            if(!nodeMap[pos-1].closed) {
+                  if(addToOpenList(&nodeMap[pos-1])) return true;
             }
             return false;
       }
-      if(x==0){
-            if(nodeMap[x+1+(y)*mapWidth].pass&&!nodeMap[x+1+(y)*mapWidth].closed) {
-                  if(addToOpenList(&nodeMap[x+1+(y)*mapWidth])) return true;
+      if(pos%mapWidth==0){
+            if(!nodeMap[pos+1].closed) {
+                  if(addToOpenList(&nodeMap[pos+1])) return true;
             }
-            if(y==0) {
-                  if(nodeMap[x+(y+1)*mapWidth].pass&&!nodeMap[x+(y+1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y+1)*mapWidth])) return true;
+            if(pos/mapWidth==0) {
+                  if(!nodeMap[pos+1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos+1*mapWidth])) return true;
             }
-            }else if(y==mapHeight-1){
-                  if(nodeMap[x+(y-1)*mapWidth].pass&&!nodeMap[x+(y-1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y-1)*mapWidth])) return true;
+            }else if(pos/mapWidth==mapHeight-1){
+                  if(!nodeMap[pos-1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos-1*mapWidth])) return true;
             }
             }else {
-                  if(nodeMap[x+(y+1)*mapWidth].pass&&!nodeMap[x+(y+1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y+1)*mapWidth])) return true;
+                  if(!nodeMap[pos+1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos+1*mapWidth])) return true;
                   }
-                  if(nodeMap[x+(y-1)*mapWidth].pass&&!nodeMap[x+(y-1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y-1)*mapWidth])) return true;
+                  if(!nodeMap[pos-1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos-1*mapWidth])) return true;
             }
             }
-      }else if(x==mapWidth-1){
-            if(nodeMap[x-1+(y)*mapWidth].pass&&!nodeMap[x-1+(y)*mapWidth].closed) {
-                  if(addToOpenList(&nodeMap[x-1+(y)*mapWidth])) return true;
+      }else if(pos%mapWidth==mapWidth-1){
+            if(!nodeMap[pos-1].closed) {
+                  if(addToOpenList(&nodeMap[pos-1])) return true;
             }
-            if(y==0) {
-                  if(nodeMap[x+(y+1)*mapWidth].pass&&!nodeMap[x+(y+1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y+1)*mapWidth])) return true;
+            if(pos/mapWidth==0) {
+                  if(!nodeMap[pos+1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos+1*mapWidth])) return true;
                   }
-            }else if(y==mapHeight-1) {
-                  if(nodeMap[x+(y-1)*mapWidth].pass&&!nodeMap[x+(y-1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y-1)*mapWidth])) return true;
+            }else if(pos/mapWidth==mapHeight-1) {
+                  if(!nodeMap[pos-1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos-1*mapWidth])) return true;
                   }
             }else{
-                  if(nodeMap[x+(y+1)*mapWidth].pass&&!nodeMap[x+(y+1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y+1)*mapWidth])) return true;
+                  if(!nodeMap[pos+1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos+1*mapWidth])) return true;
                   }
-                  if(nodeMap[x+(y-1)*mapWidth].pass&&!nodeMap[x+(y-1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y-1)*mapWidth])) return true;
+                  if(!nodeMap[pos-1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos-1*mapWidth])) return true;
                   }
             }
       }else{
-            if(nodeMap[x+1+(y)*mapWidth].pass&&!nodeMap[x+1+(y)*mapWidth].closed) {
-                  if(addToOpenList(&nodeMap[x+1+(y)*mapWidth])) return true;
+            if(!nodeMap[pos+1].closed) {
+                  if(addToOpenList(&nodeMap[pos+1])) return true;
             }
-            if(nodeMap[x-1+(y)*mapWidth].pass&&!nodeMap[x-1+(y)*mapWidth].closed) {
-                  if(addToOpenList(&nodeMap[x-1+(y)*mapWidth])) return true;
+            if(!nodeMap[pos-1].closed) {
+                  if(addToOpenList(&nodeMap[pos-1])) return true;
             }
-            if(y==0){
-                  if(nodeMap[x+(y+1)*mapWidth].pass&&!nodeMap[x+(y+1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y+1)*mapWidth])) return true;
+            if(pos/mapWidth==0){
+                  if(!nodeMap[pos+1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos+1*mapWidth])) return true;
                   }
             }else{
-                  if(nodeMap[x+(y-1)*mapWidth].pass&&!nodeMap[x+(y-1)*mapWidth].closed) {
-                        if(addToOpenList(&nodeMap[x+(y-1)*mapWidth])) return true;
+                  if(!nodeMap[pos-1*mapWidth].closed) {
+                        if(addToOpenList(&nodeMap[pos-1*mapWidth])) return true;
                   }
             }
       }
