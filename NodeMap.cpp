@@ -163,14 +163,12 @@ bool NodeMap::step(){
 }
 
 int NodeMap::fillOutput(int* pOutBuffer, const int nOutBufferSize){
-      Node* node=closedNode;
       vector<int> path;
-      while(*node!=nodeMap[start]){
-            path.push_back(node->pos);
-            node=node->parent;
+      while(*closedNode!=nodeMap[start]){
+            path.push_back(closedNode->pos);
+            closedNode=closedNode->parent;
       }
-      for(int i=0;i<path.size()&&i<nOutBufferSize;i++){
-            pOutBuffer[i]=path[path.size()-1-i];
-      }
+      if(path.size()>nOutBufferSize) return path.size();
+      for(int i=0;i<path.size();i++) pOutBuffer[i]=path[path.size()-1-i];
       return path.size();
 }

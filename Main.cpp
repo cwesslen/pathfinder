@@ -35,7 +35,6 @@ int main(){
       cout<<"Time: "<< duration <<endl;
       cout << "steps: " << steps << endl;
 
-
 //      cout << "path: ";
 //      for(int i=0;i<steps;i++) cout << pOutBuffer[i] << " ";
 //      cout << endl;

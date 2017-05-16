@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------------
 #ifndef Nodeclass
 #define Nodeclass
-#include <vector>
 using namespace std;
 
 class Node{
