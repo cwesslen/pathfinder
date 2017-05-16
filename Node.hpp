@@ -17,9 +17,6 @@ class Node{
       public:
             Node(){};
             Node(int id,bool ppass,bool pedge):pos(id),pass(ppass),edge(pedge),closed(false),open(false){};
-		bool operator<=(const Node &n) const{return G<=n.G;};
-		bool operator<(const Node &n) const{return G<n.G;};
-		bool operator==(const Node &n) const{return pos==n.pos;};
 		bool operator!=(const Node &n) const{return pos!=n.pos;};
 };
 

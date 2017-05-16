@@ -6,7 +6,6 @@
 #ifndef NodeMapclass
 #define NodeMapclass
 #include "Node.hpp"
-#include <algorithm>
 #include <queue>
 using namespace std;
 
