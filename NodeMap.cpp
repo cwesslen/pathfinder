@@ -12,7 +12,6 @@ NodeMap::NodeMap(const unsigned char* pMap, const int nMapWidth, const int nMapH
       for(int i=0;i<mapWidth*mapHeight;i++)
       nodeMap[i]=Node(i,pMap[i]==0,i%mapWidth==0||i%mapWidth==mapWidth-1||i/mapWidth==0||i/mapWidth==mapHeight-1);
       closedNode=&(nodeMap[start]);
-      nodeMap[start].G=0;
       nodeMap[start].closed=true;
       addNeighboursToOpenList();
 }
@@ -99,13 +98,11 @@ bool NodeMap::addToOpenList(Node* neighbour){
       if(!neighbour->open){
             if(neighbour->pos==target){
                   neighbour->parent=closedNode;
-                  neighbour->G=closedNode->G+1;
                   closedNode=neighbour;
                   return true;
             }
             openList.push(neighbour);
             neighbour->parent=closedNode;
-            neighbour->G=closedNode->G+1;
             neighbour->open=true;
             return false;
       }
@@ -120,10 +117,12 @@ bool NodeMap::step(){
 }
 
 int NodeMap::fillOutput(int* pOutBuffer, const int nOutBufferSize){
-      int size=closedNode->G;
-      if(size>nOutBufferSize) return size;
-      while(closedNode->G>0){
-            pOutBuffer[closedNode->G-1]=closedNode->pos;
+      vector<int> path;
+      while(*closedNode!=nodeMap[start]){
+            path.push_back(closedNode->pos);
             closedNode=closedNode->parent;
-      }return size;
+      }
+      if(path.size()>nOutBufferSize) return path.size();
+      for(int i=0;i<path.size();i++) pOutBuffer[i]=path[path.size()-1-i];
+      return path.size();
 }

@@ -6,7 +6,8 @@ Originally vectors were used and checks were in place to verify the ordering of
 the Nodes, but since no heuristic is used, this becomes mutch
 simpler, and the nodes can be placed in a simple FIFO queue. This also removes
 the need to keep track of the path length G when finding the next open node to
-close, since they are sorted.
+close, since they are sorted. However it may still be usefull when keeping track
+of the pathlength for the eventual output.
 No closed set is needed since the nodes store a boolean determening whether they
 are closed or not. So only the currently evaluated closed node needs to be
 tracked. Once the target is found, it backtracks through each nodes parent node
