@@ -148,7 +148,7 @@ bool NodeMap::addToOpenList(Node* neighbour, Node* parent){
             }
             neighbour->parent=parent;
             neighbour->G=parent->G+1;
-            openList.push_front(neighbour);
+            openList.push(neighbour);
             neighbour->open=true;
             return false;
       }
@@ -156,9 +156,9 @@ bool NodeMap::addToOpenList(Node* neighbour, Node* parent){
 }
 
 bool NodeMap::step(){
-      closedNode=openList.back();
+      closedNode=openList.front();
       closedNode->closed=true;
-      openList.pop_back();
+      openList.pop();
       return addNeighboursToOpenList();
 }
 

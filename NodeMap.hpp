@@ -7,14 +7,14 @@
 #define NodeMapclass
 #include "Node.hpp"
 #include <algorithm>
-#include <deque>
+#include <queue>
 using namespace std;
 
 class NodeMap{
       private:
             int mapWidth,mapHeight,start,target;
             Node* nodeMap;
-            deque<Node*> openList;
+            queue<Node*> openList;
             Node* closedNode;
             bool addNeighboursToOpenList();
             bool addToOpenList(Node* neighbor, Node* parent);
