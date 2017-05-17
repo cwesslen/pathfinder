@@ -16,7 +16,7 @@ class NodeMap{
             int* G;
             int* parent;
             bool addNeighboursToOpenList();
-            bool addToOpenList(int pos);
+            bool addToOpenList(const int pos);
       public:
             NodeMap(const unsigned char* pMap, const int nMapWidth, const int nMapHeight,
             const int nStartX, const int nStartY,const int nTargetX, const int nTargetY);

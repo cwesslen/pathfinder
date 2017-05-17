@@ -58,7 +58,7 @@ bool NodeMap::addNeighboursToOpenList(){
 }
 
 
-bool NodeMap::addToOpenList(int pos){
+bool NodeMap::addToOpenList(const int pos){
       if(map[pos]){
             if(pos==target){
                   parent[pos]=closedNode;
