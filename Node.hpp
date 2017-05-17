@@ -10,11 +10,10 @@ using namespace std;
 class Node{
       friend class NodeMap;
       private:
-            int pos,G,parent;
-            bool passable;
+            int pos,parent;
       public:
             Node(){};
-            Node(int id,bool ppass):pos(id),passable(ppass){};
+            Node(int id):pos(id){};
 };
 
 

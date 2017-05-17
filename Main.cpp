@@ -20,7 +20,6 @@ int main(){
       unsigned char pMap[xSize*ySize];
       for(int i=0;i<xSize*ySize;++i) pMap[i]=1;
 
-
       clock_t start;
       double duration;
       start = clock();
