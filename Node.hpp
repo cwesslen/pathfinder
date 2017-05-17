@@ -11,11 +11,11 @@ class Node{
       friend class NodeMap;
       private:
             int pos,G;
-            bool edge,closed,open;
+            bool closed,open;
             Node* parent;
       public:
             Node(){};
-            Node(int id,bool ppass,bool pedge):pos(id),closed(ppass),edge(pedge),open(false){};
+            Node(int id,bool ppass):pos(id),closed(ppass),open(false){};
 		bool operator!=(const Node &n) const{return pos!=n.pos;};
 };
 
