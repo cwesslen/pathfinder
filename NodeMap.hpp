@@ -22,7 +22,6 @@ class NodeMap{
             const int nStartX, const int nStartY,const int nTargetX, const int nTargetY);
             ~NodeMap(){delete G; delete parent; delete map;};
             bool step();
-            bool openListIsEmpty(){return openList.empty();}
             int fillOutput(int* pOutBuffer, const int nOutBufferSize);
 };
 

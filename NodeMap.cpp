@@ -10,51 +10,46 @@ NodeMap::NodeMap(const unsigned char* pMap, const int nMapWidth, const int nMapH
       mapWidth(nMapWidth),mapHeight(nMapHeight),target(nTargetX+nTargetY*mapWidth),
       map(new bool[nMapHeight*nMapWidth]),G(new int[nMapHeight*nMapWidth]),
       parent(new int[nMapHeight*nMapWidth]){
-      int size=mapWidth*mapHeight,start=nStartX+nStartY*mapWidth;
-      for(int i=0;i<size;i++) map[i]=pMap[i];
+      int start=nStartX+nStartY*mapWidth;
       closedNode=start;
       G[start]=0;
       map[start]=0;
+      for(auto i=0;i<mapWidth*mapHeight;i++) map[i]=pMap[i];
       addNeighboursToOpenList();
 }
 
 bool NodeMap::addNeighboursToOpenList(){
       if(closedNode%mapWidth==0){
             if(addToOpenList(closedNode+1)) return true;
-            if(closedNode/mapWidth==0) {
-                  if(addToOpenList(closedNode+1*mapWidth)) return true;
+            if(closedNode/mapWidth==0){
+                  return addToOpenList(closedNode+mapWidth);
             }else if(closedNode/mapWidth==mapHeight-1){
-                  if(addToOpenList(closedNode-1*mapWidth)) return true;
-            }else {
-                  if(addToOpenList(closedNode+1*mapWidth)) return true;
-                  if(addToOpenList(closedNode-1*mapWidth)) return true;
+                  return addToOpenList(closedNode-mapWidth);
+            }else{
+                  if(addToOpenList(closedNode+mapWidth)) return true;
+                  return addToOpenList(closedNode-mapWidth);
             }
-            return false;
       }else if(closedNode%mapWidth==mapWidth-1){
             if(addToOpenList(closedNode-1)) return true;
-            if(closedNode/mapWidth==0) {
-                  if(addToOpenList(closedNode+1*mapWidth)) return true;
+            if(closedNode/mapWidth==0){
+                  return addToOpenList(closedNode+mapWidth);
             }else if(closedNode/mapWidth==mapHeight-1) {
-                  if(addToOpenList(closedNode-1*mapWidth)) return true;
+                  return addToOpenList(closedNode-mapWidth);
             }else{
-                  if(addToOpenList(closedNode+1*mapWidth)) return true;
-                  if(addToOpenList(closedNode-1*mapWidth)) return true;
+                  if(addToOpenList(closedNode+mapWidth)) return true;
+                  return addToOpenList(closedNode-mapWidth);
             }
-            return false;
       }else{
             if(addToOpenList(closedNode+1)) return true;
             if(addToOpenList(closedNode-1)) return true;
             if(closedNode/mapWidth==0){
-                  if(addToOpenList(closedNode+1*mapWidth)) return true;
-                  return false;
+                  return addToOpenList(closedNode+mapWidth);
             }else if(closedNode/mapWidth==mapHeight-1){
-                  if(addToOpenList(closedNode-1*mapWidth)) return true;
-                  return false;
+                  return addToOpenList(closedNode-mapWidth);
             }
       }
-      if(addToOpenList(closedNode+1*mapWidth)) return true;
-      if(addToOpenList(closedNode-1*mapWidth)) return true;
-      return false;
+      if(addToOpenList(closedNode+mapWidth)) return true;
+      return addToOpenList(closedNode-mapWidth);
 }
 
 
@@ -74,16 +69,20 @@ bool NodeMap::addToOpenList(const int pos){
 }
 
 bool NodeMap::step(){
+      if(openList.empty()) return true;
       closedNode=openList.front();
       openList.pop();
       return addNeighboursToOpenList();
 }
 
 int NodeMap::fillOutput(int* pOutBuffer, const int nOutBufferSize){
+      if(closedNode!=target) return -1;
       int size=G[closedNode];
       if(size>nOutBufferSize) return size;
-      while(G[closedNode]>0){
-            pOutBuffer[G[closedNode]-1]=closedNode;
+      for(auto i=size-1;i>0;i--){
+            pOutBuffer[i]=closedNode;
             closedNode=parent[closedNode];
-      }return size;
+      }
+      pOutBuffer[0]=closedNode;
+      return size;
 }
