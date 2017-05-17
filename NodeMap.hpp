@@ -13,8 +13,8 @@ class NodeMap{
       private:
             int mapWidth,mapHeight,start,target;
             Node* nodeMap;
-            queue<Node*> openList;
-            Node* closedNode;
+            queue<int> openList;
+            int closedNode;
             bool addNeighboursToOpenList();
             bool addToOpenList(Node* neighbor);
       public:
