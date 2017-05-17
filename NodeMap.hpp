@@ -10,10 +10,9 @@ using namespace std;
 
 class NodeMap{
       private:
-            int mapWidth,mapHeight,target;
-            bool* map;
+            int mapWidth,mapHeight,target,closedNode;
             queue<int> openList;
-            int closedNode;
+            bool* map;
             int* G;
             int* parent;
             bool addNeighboursToOpenList();
